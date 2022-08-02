@@ -110,7 +110,6 @@ The approximation is to pick a random word with at least 20 synonyms (which is
 overwhelmingly likely to be in the giant component) and then find the length of
 the shortest path from that word to every other word.  The program prints out
 word pairs which you can then look at in more detail with `synoPath`.  You can
-also use a first run as the basis for "seed" further runs starting with the
-words you ended with last time - and as such more likely than random to be on
-a "thin fringe" in the graph, like `diam r niacin 4` gives me a diameter
-estimate of 9.
+also use a first run as the basis to "seed" further runs starting with words you
+ended with last time - and as such more likely than random to be on a "thin
+fringe" in the graph, like `diam r niacin 4` gives me a diameter estimate of 9.
