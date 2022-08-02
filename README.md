@@ -41,8 +41,8 @@ kinds of synonym that Moby defines: **reciprocal** ("beguile" lists "amuse" as a
 synonym), **defined** ("absorb" has synonyms, but "amuse" is not one of them),
 and **undefined** ("recreate" has no synonym list in Moby).
 
-Deeper
-------
+Deeper Analysis
+---------------
 
 To do deeper analysis, one can also `nimble install`
 [grAlg](https://github.com/c-blake/gralg) and use utility programs in `util/`.
