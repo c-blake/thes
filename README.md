@@ -2,8 +2,7 @@ Overview
 --------
 
 This is a Nim thesaurus CLI/library & suite of analyzer utilities inspired by
-[grAlg](https://github.com/c-blake/gralg) & [Moby Thesaurus input
-data](https://github.com/words/moby/raw/master/words.txt).
+[Moby Thesaurus input data](https://github.com/words/moby/raw/master/words.txt).
 
 Setup
 -----
@@ -42,8 +41,14 @@ kinds of synonym that Moby defines: **reciprocal** ("beguile" lists "amuse" as a
 synonym), **defined** ("absorb" has synonyms, but "amuse" is not one of them),
 and **undefined** ("recreate" has no synonym list in Moby).
 
-To do a deeper analysis, one can create 4 undirected/reciprocal variants of the
-pre-parsed data (you could, of course, also pre-compile `symmSyn`):
+Deeper
+------
+
+To do deeper analysis, one can also `nimble install`
+[grAlg](https://github.com/c-blake/gralg) and use utility programs in `util/`.
+
+E.g., to create 4 undirected/reciprocal variants of the pre-parsed data (you
+could, of course, also pre-compile `symmSyn`):
 ```sh
 $ for kind in r d u a; do
   nim r -d:danger util/symmSyn -a $kind < words.txt > adj.txt
