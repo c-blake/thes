@@ -27,7 +27,7 @@ Usage
 
 With all of the above, you are now ready for various use cases.  The basic
 functionality is seen by something like just:
-```sh
+```
 $ thes amuse
 beguile    entertain    please    tickle      charm      interest       recreate
 convulse   exhilarate   refresh   titillate   cheer      quicken
