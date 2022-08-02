@@ -92,7 +92,7 @@ diam
 
 The short paths between words and their literal opposites may make you curious
 about the diameter of the giant component of the undirected graph.  This maximum
-shortest path is akin to the "6" in the ["six" degrees of
+shortest path is akin to the "6" in [six degrees of
 separation](https://en.wikipedia.org/wiki/Six_degrees_of_separation) ("Kevin
 Bacon starred in a movie with XYZ").
 
