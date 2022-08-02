@@ -87,7 +87,7 @@ component:
 nim r -d:danger util/compon r
 ```
 Besides [random graph theory](https://en.wikipedia.org/wiki/Random_graph) and
-the high connectivity in a typical thesaurus, this is probably due to something
+the high connectivity in a typical thesaurus, this is likely due to something
 deep about sarcasm in human language (especially applied to extremes like "very
 something") as well as due to the aims of thesaurus construction.
 
