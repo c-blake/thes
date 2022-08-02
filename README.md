@@ -28,7 +28,7 @@ With all of the above, you are now ready for various use cases.  The basic
 functionality is seen by something like just:
 ```
 $ thes amuse
-beguile  entertain  please  tickle    charm     interest      recreate
+beguile  entertain  please  tickle    charm     interest   recreate
 convulse exhilarate refresh titillate cheer     quicken
 delight  kill       regale  while     enchant   wile
 distract knock dead relax   wow       engross   fracture one
