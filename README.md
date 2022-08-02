@@ -79,7 +79,7 @@ begins to explain why almost the entire thesaurus is in one large connected
 component.  You can find many such examples of short synonymity paths (by two
 different graph algorithms) by running:
 ```sh
-nim r -d:danger util/synoPath bad good
+nim r -d:danger util/synoPath r bad good
 ```
 (I get just 2 hops here: "bad"-"OK"-"good".)  Besides
 [random graph theory](https://en.wikipedia.org/wiki/Random_graph) and the high
