@@ -41,8 +41,8 @@ kinds of synonym that Moby defines: **reciprocal** ("beguile" lists "amuse" as a
 synonym), **defined** ("absorb" has synonyms, but "amuse" is not one of them),
 and **undefined** ("recreate" has no synonym list in Moby).
 
-`thes -h` gives a full list of CLI options/behavior, but as one example, you can
-do `thes -pg-1 divert|awk 'length<=4'` to see only short synonyms of "divert".
+`thes -h` gives a full list of CLI options/behavior. You can
+`thes -pg-1 divert|awk length\<5` to see only short synonyms of "divert", for example.
 
 Deeper Analysis
 ---------------
