@@ -206,7 +206,7 @@ proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
       else:     # 3 passes is still fast; Eg., makes same num of strings
         if ok(KxRef, cnts):
           for sn in th.synos(w.toMemSlice):
-            let (ms, _) = th.word(sn.abs)         # < 0 => left-aligned
+            let (ms, _ {.used.}) = th.word(sn.abs)         # < 0 => left-aligned
             if sn<0: strs.add hlX & $ms & hl0; wids.add -ms.size
         if ok(KkwOnly, cnts):
           for sn in th.synos(w.toMemSlice):
