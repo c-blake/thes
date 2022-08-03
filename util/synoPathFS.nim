@@ -9,7 +9,7 @@ iterator nodes(th: Thes): int32 =
   for i in 0i32 ..< toStr.len.int32: yield i
 
 iterator edges(th: Thes, u: int32): int32 =
-  for v in th[u]: yield u
+  for v in th[u]: yield v
 
 let b = getId(paramStr(1))
 let e = getId(paramStr(2))
