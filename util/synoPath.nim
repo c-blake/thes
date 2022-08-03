@@ -1,8 +1,9 @@
 import std/[os, times, memfiles], thes, grAlg
 template timeIt(label, stmt) =
-  let t0 = epochTime(); stmt; echo epochTime() - t0, " sec", label
+  let t0 = epochTime(); stmt; echo epochTime() - t0, " sec ", label
 
-if paramCount() != 3: quit "Usage:\n\tsynoPath2 BASE wordA wordB\nshows a shortest path\n", 1
+if paramCount() != 3:
+  quit "Usage:\n\tsynoPath BASE wordA wordB\nshows shortest paths\n", 1
 let th = thOpen("", getEnv("HOME", "/u/cb")/".config/thes/"/paramStr(1))
 
 iterator edges[I](th: Thes, u: I): I =
@@ -22,17 +23,17 @@ var e = th.find(paramStr(3).toMemSlice).int32
 if e < 0: quit paramStr(3) & ": not found", 1
 e = th.tab[e].kwR.int32
 
-timeIt(" Dijkstra Shortest Path"):
+timeIt "Dijkstra Shortest Path":
   let pf = th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges1)
 for r in pf: echo "  ", th.word(r.abs)[0]
 
-timeIt(" Dijkstra Hot Cache"):
+timeIt "Dijkstra Hot Cache":
   discard th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges1)
 
-timeIt(" Breadth First Search"):
+timeIt "Breadth First Search":
   let bf = th.shortestPathBFS(th.maxWRef.int, b, e, edges)
 for r in bf: echo "  ", th.word(r.abs)[0]
 
-timeIt(" Dijkstra Min Chars Path"):
+timeIt "Dijkstra Min Chars Path":
   let mc = th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges)
 for r in mc: echo "  ", th.word(r.abs)[0]
