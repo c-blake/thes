@@ -167,7 +167,7 @@ import std/[strutils, terminal, times], cligen/[tab, humanUt]
 type K = enum KxRef="xRef", KkwOnly="kwOnly", KunDef="unDef"
 proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
           limit=0, xRef="bold", kwOnly="plain", unDef="italic", plain=false,
-          count=false, measure=false, words: seq[string]) = # import{.all.}able
+          count=false, measure=false, words: seq[string]) {.used.} =
   ## List synonyms maybe with various ANSI SGR embellishments.  With no words on
   ## the command line, this instead runs as a stdin-stdout filter.
   ##
