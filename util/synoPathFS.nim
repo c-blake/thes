@@ -15,7 +15,7 @@ iterator wedges1(th: Thes, u: int32): (int32, uint32) =
   for v in th[u]: yield (v, 1u32)
 
 iterator wedges(th: Thes, u: int32): (int32, uint32) =
-  for v in th[u]: yield (v, toStr[u].len.uint32)
+  for v in th[u]: yield (v, toStr[v].len.uint32)
 
 let b = getId(paramStr(1))
 let e = getId(paramStr(2))
