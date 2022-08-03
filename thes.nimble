@@ -5,4 +5,4 @@ description = "Thesaurus CLI/Library & Analyzer in Nim"
 license     = "MIT/ISC"
 
 # Dependencies
-requires "nim >= 1.2.0", "cligen >= 1.5.27", 
+requires "nim >= 1.2.0", "cligen >= 1.5.27"
