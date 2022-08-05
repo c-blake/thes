@@ -22,16 +22,16 @@ let b = getId(paramStr(1))
 let e = getId(paramStr(2))
 
 timeIt "Dijkstra Shortest Path":
-  let pf = th.shortestPathPFS(uint32, toStr.len, b, e, nodes, wedges1)
+  let pf = th.shortestPathPFS(toStr.len, b, e, nodes, wedges1)
 for r in pf: echo "  ", toStr[r]
 
 timeIt "Dijkstra Hot Cache":
-  discard th.shortestPathPFS(uint32, toStr.len, b, e, nodes, wedges1)
+  discard th.shortestPathPFS(toStr.len, b, e, nodes, wedges1)
 
 timeIt "Breadth First Search":
   let bf = th.shortestPathBFS(toStr.len, b, e, edges)
 for r in bf: echo "  ", toStr[r]
 
 timeIt "Dijkstra Min Chars Path":
-  let mc = th.shortestPathPFS(uint32, toStr.len, b, e, nodes, wedges)
+  let mc = th.shortestPathPFS(toStr.len, b, e, nodes, wedges)
 for r in mc: echo "  ", toStr[r]

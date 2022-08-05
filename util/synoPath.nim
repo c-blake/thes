@@ -24,16 +24,16 @@ if e < 0: quit paramStr(3) & ": not found", 1
 e = th.tab[e].kwR.int32
 
 timeIt "Dijkstra Shortest Path":
-  let pf = th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges1)
+  let pf = th.shortestPathPFS(th.maxWRef.int, b, e, words, wedges1)
 for r in pf: echo "  ", th.word(r.abs)[0]
 
 timeIt "Dijkstra Hot Cache":
-  discard th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges1)
+  discard th.shortestPathPFS(th.maxWRef.int, b, e, words, wedges1)
 
 timeIt "Breadth First Search":
   let bf = th.shortestPathBFS(th.maxWRef.int, b, e, edges)
 for r in bf: echo "  ", th.word(r.abs)[0]
 
 timeIt "Dijkstra Min Chars Path":
-  let mc = th.shortestPathPFS(uint32, th.maxWRef.int, b, e, words, wedges)
+  let mc = th.shortestPathPFS(th.maxWRef.int, b, e, words, wedges)
 for r in mc: echo "  ", th.word(r.abs)[0]
