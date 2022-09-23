@@ -78,7 +78,9 @@ the smallest of our above 5 thesauruses ('r').  I get just 3 hops here: "hello"
 is synonymous with "address" is synonymous with "valedictory" is synonymous with
 "farewell".  "bad"-"good" is even worse - separated by only "OK".  (Two graph
 algos are used mostly to exhibit how much slower Dijkstra is when its weighted
-digraph generality is unneeded).
+digraph generality is unneeded). { Note: in a wider world than Moby, there is a
+tradition of including an antonym category in thesauruses.  This would play well
+with the colorization already done in `thes`, but needs a data source. }
 
 compon
 ------
