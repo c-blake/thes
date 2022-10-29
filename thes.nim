@@ -3,6 +3,12 @@
 # find yourself using this often, set up a ~/.config/thes with a cached build.
 
 import system/ansi_c, std/[tables, os, math, hashes], std/memfiles as mf
+when declared(File):
+  template stdOpen(x: varargs[untyped]): untyped = system.open(x)
+else:
+  import std/[syncio, formatfloat]
+  template stdOpen(x: varargs[untyped]): untyped = syncio.open(x)
+
 let mfop = mf.open                      # Collides with system.open
 
 # Boring boiler plate-y things that should be in stdlib (were that not so hard).
@@ -80,7 +86,7 @@ proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   th.uniM = mfop(base & ".Lc", fmReadWrite, newFileSize=131072, allowRemap=true)
   th.synM = mfop(base & "_s.NI", fmReadWrite, newFileSize=4*n)
   th.tabSz = n; th.tab = cast[pua TabEnt](th.tabM.mem)
-  let synsF = system.open(base & "_sL.Ni", fmWrite)
+  let synsF = stdOpen(base & "_sL.Ni", fmWrite)
   var uniq  = initTable[MemSlice, uint32](4*nL)  # `4` here just avg from Moby
   var uniO, wO, synO, synsO: uint32
   th.uniM.add chr(0u8), uniO    # => all offs > 0; So 0 encodes missing in hash

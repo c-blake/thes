@@ -1,4 +1,6 @@
 import std/[os, times, tables, sets], symmSyn, grAlg # synonym path From Scratch
+when not declared(File): import std/[syncio, formatfloat]
+
 template timeIt(label, stmt) =
   let t0 = epochTime(); stmt; echo epochTime() - t0, " sec ", label
 

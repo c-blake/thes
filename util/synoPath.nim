@@ -1,4 +1,5 @@
 import std/[os, times, memfiles], thes, grAlg
+when not compiles($1.0): import std/formatfloat
 template timeIt(label, stmt) =
   let t0 = epochTime(); stmt; echo epochTime() - t0, " sec ", label
 

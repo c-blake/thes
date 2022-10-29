@@ -1,4 +1,5 @@
 import std/[strutils, tables, sets, sugar, algorithm]
+when not declared(File): import std/syncio
 type
   Thes*   = Table[int32, HashSet[int32]]
   Adjust* = enum adjRecip="recip", adjDef="def", adjUndef="undef", adjAny="any"
