@@ -1,4 +1,4 @@
-when not declared(Thread): import std/threads
+when not declared(Thread): import std/typedthreads
 import std/[os, memfiles, random, parseutils, deques], thes, grAlg, cligen/sysUt
 randomize()
 if paramCount() != 3:
