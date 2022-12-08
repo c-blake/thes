@@ -1,5 +1,5 @@
 # Package
-version     = "0.3.0"
+version     = "0.4.0"
 author      = "Charles Blake"
 description = "Thesaurus CLI/Library & Analyzer in Nim"
 license     = "MIT/ISC"
