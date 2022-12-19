@@ -77,7 +77,7 @@ proc synsContain(th: Thes, ss: MemSlice, wn: int32): bool = # Check Reciprocal
 
 proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   template offGetOrAdd(o, k, uniq, uniO, uniM) =
-    if k.size>127: raise newException(ValueError,"overlong word: \"" & $k & "\"")
+    if k.size>127:raise newException(ValueError,"overlong word: \"" & $k & "\"")
     try: o = uniq[k]                    # lptabz editOrInit would do only 1 find
     except CatchableError:
       o=uniO; uniq[k]=o; uniM.add chr(k.size.int8), uniO; uniM.add k, uniO

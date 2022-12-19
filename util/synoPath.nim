@@ -15,7 +15,7 @@ iterator wedges1[I](th: Thes, u: I): (I, uint32) =
   for v in th.synos(th.word(u.I)[0]): yield (v.abs, 1u32)
 
 iterator wedges[I](th: Thes, u: I): (I, uint32) =
-  for v in th.synos(th.word(u.I)[0]): yield (v.abs, th.word(v.abs)[0].size.uint32)
+  for v in th.synos(th.word(u.I)[0]): yield(v.abs,th.word(v.abs)[0].size.uint32)
 
 var b = th.find(paramStr(2).toMemSlice).int32
 if b < 0: quit paramStr(2) & ": not found", 1
