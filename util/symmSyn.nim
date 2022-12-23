@@ -56,10 +56,10 @@ proc symmSyn*(input="-", adjust=adjRecip, format=fmtKeyed) =
   let f  = if input == "-": stdin else: open(input)
   let th = f.makeSymmetric adjust
   for kw, syns in th:                        
-    var ssyns = collect(for syn in syns: toStr[syn])
+    var ssyns = collect(for syn in syns: toStr[syn][0..^1])
     case format
     of fmtKeyed  : ssyns.sort; echo toStr[kw], ",", ssyns.join ","
-    of fmtOrdered: ssyns.add toStr[kw]; ssyns.sort; echo ssyns.join ","
+    of fmtOrdered: ssyns.add toStr[kw][0..^1]; ssyns.sort; echo ssyns.join ","
 
 when isMainModule:
   import cligen; dispatch symmSyn, help={
