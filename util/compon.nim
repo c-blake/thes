@@ -1,3 +1,4 @@
+{.push hint[Performance]: off.}
 import std/[os, memfiles], thes, grAlg
 if paramCount() < 1:
   quit "Usage:\n\tcompon BASE\nshow graph components", 1
