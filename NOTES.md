@@ -4,6 +4,7 @@ As conceived, this program highlights rather than second guesses human
 (mis)judgement.  Some users may prefer symmetry of "synonymity" to override.
 Such users can use the below small program to pre-process a "words.txt":
 
+```Python
 import strutils,tables,sets,algorithm,sugar |from sys import stdin
 var th = initTable[string,HashSet[string]]()|th = {}
 var kw: string                              |kw = ""
@@ -21,6 +22,7 @@ for kw, syns in th:                         |for (kw, syns) in th.items():
   var ssyns = collect(for syn in syns: syn) |  ssyns = [ syn for syn in syns ]
   ssyns.sort                                |  ssyns.sort()
   echo kw, ",", ssyns.join ","              |  print(kw + "," + ",".join(ssyns))
+```
 
 This program is basically a special case of util/symmSyn.nim.  Above, the Nim is
 barely faster than Py.  Having done this, such users may want plain=on in their
