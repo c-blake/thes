@@ -72,8 +72,8 @@ iterator synos*(th: Thes, ws: MemSlice, n=0): int32 =
         yield syns[j]
 
 proc synsContain(th: Thes, ss: MemSlice, wn: int32): bool = # Check Reciprocal
-  for rn in th.synos(ss):               # Linear scans are slow; East to just do
-    if rn.abs == wn: return true        #..int not string compares, though.
+  for rn in th.synos(ss):               # Linear scans are slow; Easiest to just
+    if rn.abs == wn: return true        #..do int not string compares, though.
 
 proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   template offGetOrAdd(o, k, uniq, uniO, uniM) =
