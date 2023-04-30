@@ -62,14 +62,21 @@ proc find*(th: Thes, w: MemSlice, hsp: ptr uint16 = nil): int =
   if not hsp.isNil: hsp[] = hs          # Optional hash suffix return for `make`
   return -i - 1                         # Not Found, return -(insertion point)-1
 
-iterator synos*(th: Thes, ws: MemSlice, n=0): int32 =
+var esq: seq[string]
+func prefixedByAny(s: MemSlice, drop: seq[string]): bool =
+  for d in drop:                        # Below is basically `s.startsWith(d)`
+    if d.len > 0 and s.size > d.len and
+       c_memcmp(s.data, d[0].unsafeAddr, d.len.csize_t) == 0: return true
+
+iterator synos*(th: Thes, ws: MemSlice, n=0, drop=esq): int32 =
   ## Yield word numbers of synonyms; < 0 => synonymity is reciprocal.
   if (let i = th.find(ws); i >= 0):                     # Hash Lookup
     let syn  = cast[pua int32](th.synM.mem)[i.int]      # Get offset(list)
     let syns = cast[pua int32](th.synsM.mem +% syn)     # Get list itself
     for j in 1i32 .. syns[0]:                           # Iterate over elements
       if n == 0 or abs(cast[ptr int8](th.uniM.mem +% abs(syns[j]))[].int) <= n:
-        yield syns[j]
+        if drop.len == 0 or not th.word(syns[j].abs)[0].prefixedByAny(drop):
+          yield syns[j]
 
 proc synsContain(th: Thes, ss: MemSlice, wn: int32): bool = # Check Reciprocal
   for rn in th.synos(ss):               # Linear scans are slow; Easiest to just
@@ -163,9 +170,9 @@ proc degree*(th: Thes, i: int32): int32 =
   let syns = cast[pua int32](th.synsM.mem +% syn)     # Get list itself
   syns[0]
 
-proc count*(th: Thes, w: string, n=0): tuple[nSyn, nAlso, nKeyW: int] =
+proc count*(th: Thes, w: string, n=0, drop=esq): tuple[nSyn, nAlso, nKeyW: int]=
   ## Return a count of synonyms in various categories.  Undefined=nSyn-others.
-  for sn in th.synos(w.toMemSlice, n):
+  for sn in th.synos(w.toMemSlice, n, drop):
     let (_, keyw) = th.word(sn.abs)
     if   sn<0: inc result.nAlso
     elif keyw: inc result.nKeyW
@@ -175,8 +182,8 @@ import std/[strutils, terminal, times], cligen/[tab, humanUt]
 
 type K = enum KxRef="xRef", KkwOnly="kwOnly", KunDef="unDef"
 proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
-          limit=0, xRef="bold", kwOnly="plain", unDef="italic", plain=false,
-          n=0, count=false, measure=false, words: seq[string]) {.used.} =
+         limit=0, xRef="bold", kwOnly="plain", unDef="italic", plain=false, n=0,
+         count=false, measure=false, drop=esq, words: seq[string]) {.used.} =
   ## List synonyms maybe with various ANSI SGR embellishments.  With no words on
   ## the command line, this instead runs as a stdin-stdout filter.
   ##
@@ -197,16 +204,16 @@ proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
       var t0: float
       if words.len > 1: stdout.write "Word: ", w, ": "
       if measure: t0 = epochTime()
-      let (nSyn, nAlso, nKeyW) = th.count(w, n)
+      let (nSyn, nAlso, nKeyW) = th.count(w, n, drop)
       if measure: stderr.write epochTime() - t0, " seconds\n"
       echo nSyn, " syns ", nAlso, " alsos ", nSyn - (nKeyW + nAlso), " missing"
     else:
       if words.len > 1: echo "Word: ", w
       var strs: seq[string]       #NOTE: reciprocal => keyw, but NOT vice versa
       var wids: seq[int]          # unembellished lens
-      let cnts = th.count(w, n)
+      let cnts = th.count(w, n, drop)
       if alpha:
-        for sn in th.synos(w.toMemSlice, n):
+        for sn in th.synos(w.toMemSlice, n, drop):
           let (ms, keyw) = th.word(sn.abs)
           let wid = -ms.size        # < 0 => left-aligned
           if   sn<0 and ok(KxRef  , cnts): strs.add hlX & $ms & hl0;wids.add wid
@@ -214,15 +221,15 @@ proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
           elif          ok(KunDef , cnts): strs.add hlU & $ms & hl0;wids.add wid
       else:     # 3 passes is still fast; Eg., makes same num of strings
         if ok(KxRef, cnts):
-          for sn in th.synos(w.toMemSlice, n):
+          for sn in th.synos(w.toMemSlice, n, drop):
             let (ms, _ {.used.}) = th.word(sn.abs)         # < 0 => left-aligned
             if sn<0: strs.add hlX & $ms & hl0; wids.add -ms.size
         if ok(KkwOnly, cnts):
-          for sn in th.synos(w.toMemSlice, n):
+          for sn in th.synos(w.toMemSlice, n, drop):
             let (ms, keyw) = th.word(sn.abs)
             if sn >= 0 and keyw: strs.add hlK & $ms & hl0; wids.add -ms.size
         if ok(KunDef, cnts):
-          for sn in th.synos(w.toMemSlice, n):
+          for sn in th.synos(w.toMemSlice, n, drop):
             let (ms, keyw) = th.word(sn.abs)
             if sn >= 0 and not keyw: strs.add hlU & $ms & hl0; wids.add -ms.size
       if gap >= 0: stdout.format ttyWidth - pfx.len, wids, strs, gap, pfx
@@ -249,5 +256,6 @@ when isMainModule:
     "unDef" : "highlight for undefined in thesaurus",
     "plain" : "disable ANSI SGR Escape highlighting",
     "n"     : "match words <= this length only",
+    "drop"  : "drop synonyms starting with these PREFIXES",
     "count" : "only count synonyms; do not render",
     "measure":"time query in count mode"}
