@@ -62,7 +62,7 @@ proc find*(th: Thes, w: MemSlice, hsp: ptr uint16 = nil): int =
   if not hsp.isNil: hsp[] = hs          # Optional hash suffix return for `make`
   return -i - 1                         # Not Found, return -(insertion point)-1
 
-var esq: seq[string]
+const esq: seq[string] = @[]
 func prefixedByAny(s: MemSlice, drop: seq[string]): bool =
   for d in drop:                        # Below is basically `s.startsWith(d)`
     if d.len > 0 and s.size > d.len and
