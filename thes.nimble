@@ -6,4 +6,4 @@ license     = "MIT/ISC"
 installDirs = @["util"]
 
 # Dependencies
-requires "nim >= 1.2.0", "cligen >= 1.5.37", "gralg >= 0.4.2"
+requires "nim >= 1.2.0", "cligen >= 1.6.3", "gralg >= 0.4.3"
