@@ -53,7 +53,7 @@ proc word*(th: Thes, i: int32): (MemSlice, bool) = # len < 0 => a keyword
 
 proc find*(th: Thes, w: MemSlice, hsp: ptr uint16 = nil): int =
   let msk = th.tabSz - 1                # Vanilla linear probe hash search
-  let h  = hashData(w.data, w.size)     # Hash the key
+  let h = toOpenArray[byte](cast[ptr UncheckedArray[byte]](w.data),0,w.size-1).hash
   let hs = uint16(h and ((1 shl 11)-1)) # Comparison prefix mask
   var i  = h and msk                    # Initial probe
   while (let j = th.tab[i].kwR.int; j != 0):
