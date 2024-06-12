@@ -96,7 +96,7 @@ proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   var inp = mfop(input)
   var nL = 0                            # Pass 1: just count lines
   for line in memSlices(inp): inc nL
-  let n = nextPowerOfTwo(4*nL div 3)    # Target < 3/4 Hash Table Load Factor
+  let n = max(4, nextPowerOfTwo(4*nL div 3)) # Target <3/4 HashTable LoadFactor
   th.tabM = mfop(base & ".NI", fmReadWrite, newFileSize=4*n)
   th.uniM = mfop(base & ".Lc", fmReadWrite, newFileSize=131072, allowRemap=true)
   th.synM = mfop(base & "_s.NI", fmReadWrite, newFileSize=4*n)
