@@ -28,6 +28,9 @@ proc add[T: SomeInteger](f: var MemFile, ms: MemSlice, off: var T) =
 proc toMemSlice*(a: string): MemSlice =
   result.data = a.cstring; result.size = a.len
 
+proc hash*(ms: MemSlice): Hash {.inline.} = # Else ob.hash used;Does not hashDAT
+  toOpenArray[byte](cast[ptr UncheckedArray[byte]](ms.data), 0, ms.size-1).hash
+
 proc removeFiles(paths: seq[string]) =
   for p in paths: (try: p.removeFile except CatchableError: discard)
 
