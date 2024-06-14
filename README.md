@@ -77,10 +77,11 @@ $ for kind in r d u a; do
   rm adj.txt
 done
 ```
-Here 'r' is the fully restricted to reflexive/reciprocal variant (just `a,b` &
-`b,a` above) while 'a' is the "fully filled out { a)ll defined & cross-refd}"
-undirected variant (4 rows of a,b,c,d with each letter as a key) and the other
-two are..less useful in-between variants.
+Here 'r' is a fully (r)estricted to reflexive/reciprocal variant (just `a,b` &
+`b,a` above) or maybe "the smallest / most firmly arguably thesaurus" while 'a'
+is the "fully filled out { (a)ll defined & cross-refd }" undirected variant
+(4 rows of a,b,c,d with each letter as a key) or maybe "the biggest tent / most
+inclusive thesaurus".  The other two are less useful half-measures.
 
 Now you can point `thes` or various `util/` programs to `--base
 ~/.config/thes/[rdua]` for various styles of undirected thesaurus.
