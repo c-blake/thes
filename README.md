@@ -54,10 +54,10 @@ A simple Moby-like input manifesting all possibilities of what might be called
 "maybe-intentional-maybe-delinquent non-reflexivity" are covered by the example
 of 4\*1-letter words in 3 synonym lists:
 ```
-a,b    # c missing! d maybe-missing if undef-ok
-b,a,c  # d missing
-c,a,d  # b missing; d undefined except as synonym
-# d,c,a,maybe-b # maybe a whole new row
+a,b    # c maybe-missing! d maybe-missing
+b,a,c  # d maybe-missing
+c,a,d  # b maybe-missing; d defined only as synonym
+# d,c,a,maybe-b # maybe whole row missing
 ```
 Here only a-b is "complete" (what some mathematicians might call "closed") with
 reflexive (a==b => b==a) symmetry.  If one firmly believes in "reflexivity of
@@ -77,9 +77,10 @@ $ for kind in r d u a; do
   rm adj.txt
 done
 ```
-Here 'r' is the fully restricted to reflexive/reciprocal variant while 'a' is
-the "fully filled out (everything defined & cross-referenced)" undirected
-variant and the other two are somewhere less useful in between.
+Here 'r' is the fully restricted to reflexive/reciprocal variant (just `a,b &
+`b,a` above) while 'a' is the "fully filled out { a)ll defined & cross-refd}"
+undirected variant (4 rows of a,b,c,d with each letter as a key) and the other
+two are..less useful in-between variants.
 
 Now you can point `thes` or various `util/` programs to `--base
 ~/.config/thes/[rdua]` for various styles of undirected thesaurus.
