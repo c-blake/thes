@@ -50,13 +50,14 @@ Deeper Analysis
 To do deeper analysis, one can also `nimble install`
 [grAlg](https://github.com/c-blake/gralg) and use utility programs in `util/`.
 
-The simplest possible Moby-like input manifesting all possibilities of what
-might be called "maybe-intentional-maybe-delinquent non-reflexivity" are covered
-by the example of 4 1-letter words in 3 synonym lists:
+A simple Moby-like input manifesting all possibilities of what might be called
+"maybe-intentional-maybe-delinquent non-reflexivity" are covered by the example
+of 4\*1-letter words in 3 synonym lists:
 ```
-a,b
-b,a,c
-c,a,d
+a,b    # c missing! d maybe-missing if undef-ok
+b,a,c  # d missing
+c,a,d  # b missing; d undefined except as synonym
+# d,c,a,maybe-b # maybe a whole new row
 ```
 Here only a-b is "complete" (what some mathematicians might call "closed") with
 reflexive (a==b => b==a) symmetry.  If one firmly believes in "reflexivity of
