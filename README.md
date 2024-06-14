@@ -60,7 +60,7 @@ c,a,d
 ```
 Here only a-b is "complete" (what some mathematicians might call "closed") with
 reflexive (a==b => b==a) symmetry.  If one firmly believes in "reflexivity of
-synonymity" then one can impose this symmetry on answers by ***either
+synonymity" then one can ***impose this symmetry*** on answers by ***either
 restricting*** to an already symmetric subset of arcs aka edges (in this case
 just a,b and b,a) ***OR adding*** new arcs (`c` to `a,b`) or whole new words
 (maybe up to `d,a,b,c`) to augment the data.  These can all convert ***directed
