@@ -50,8 +50,25 @@ Deeper Analysis
 To do deeper analysis, one can also `nimble install`
 [grAlg](https://github.com/c-blake/gralg) and use utility programs in `util/`.
 
-E.g., to create 4 undirected/reciprocal variants of the pre-parsed data (you
-could, of course, also pre-compile `symmSyn`):
+The simplest possible Moby-like input manifesting all possibilities of what
+might be called "maybe-intentional-maybe-delinquent non-reflexivity" are covered
+by the example of 4 1-letter words in 3 synonym lists:
+```
+a,b
+b,a,c
+c,a,d
+```
+Here only a-b is "complete" (what some mathematicians might call "closed") with
+reflexive (a==b => b==a) symmetry.  If one firmly believes in "reflexivity of
+synonymity" then one can impose this symmetry on answers by ***either
+restricting*** to an already symmetric subset of arcs aka edges (in this case
+just a,b and b,a) ***OR adding*** new arcs (`c` to `a,b`) or whole new words
+(maybe up to `d,a,b,c`) to augment the data.  These can all convert ***directed
+graphs*** of "meanings" to ***undirected*** ones.
+[`util/symmSyn.nim`](util/symmSyn.nim) implements a few of these ideas if you'd
+prefer to "preprocess" a Moby-like `words.txt` for actual `thes` usage.
+
+E.g., to create 4 variants of the pre-parsed data[^1]:
 ```sh
 $ for kind in r d u a; do
   nim r -d:danger util/symmSyn -a $kind < words.txt > adj.txt
@@ -59,6 +76,10 @@ $ for kind in r d u a; do
   rm adj.txt
 done
 ```
+Here 'r' is the fully restricted to reflexive/reciprocal variant while 'a' is
+the "fully filled out (everything defined & cross-referenced)" undirected
+variant and the other two are somewhere less useful in between.
+
 Now you can point `thes` or various `util/` programs to `--base
 ~/.config/thes/[rdua]` for various styles of undirected thesaurus.  For
 example..
@@ -118,3 +139,5 @@ word pairs which you can then look at in more detail with `synoPath`.  You can
 also use a first run as the basis to "seed" further runs starting with words you
 ended with last time - and as such more likely than random to be on a "thin
 fringe" in the graph, like `diam r niacin 4` gives me a diameter estimate of 9.
+
+[^1]: You could, of course, also pre-compile `symmSyn` instead of `nim r`.
