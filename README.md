@@ -28,19 +28,19 @@ With all of the above, you are now ready for various use cases.  The basic
 functionality is seen by something like just:
 ```
 $ thes amuse
-beguile     refresh    enchant
-convulse    regale     engross
-delight     relax      fascinate
-distract    slay       fleet
-divert      solace     interest
-enliven     tickle     quicken
-entertain   titillate  wile
-exhilarate  while      fracture one
-kill        wow        raise a laugh
-knock dead  absorb     raise a smile
-loosen up   animate    recreate
-occupy      charm
-please      cheer
+beguile    refresh   enchant
+convulse   regale    engross
+delight    relax     fascinate
+distract   slay      fleet
+divert     solace    interest
+enliven    tickle    quicken
+entertain  titillate wile
+exhilarate while     fracture one
+kill       wow       raise a laugh
+knock dead absorb    raise a smile
+loosen up  animate   recreate
+occupy     charm
+please     cheer
 ```
 The (note -- *alphabetical*) block from "absorb".."wile" is hopefully rendered
 differently than each before/after block.  This rendering shows the various
