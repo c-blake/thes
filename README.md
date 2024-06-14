@@ -68,7 +68,7 @@ graphs*** of "meanings" to ***undirected*** ones.
 [`util/symmSyn.nim`](util/symmSyn.nim) implements a few of these ideas if you'd
 prefer to "preprocess" a Moby-like `words.txt` for actual `thes` usage.
 
-E.g., to create 4 variants of the pre-parsed data[^1]:
+E.g., to create 4 more variants of the pre-parsed data[^1]:
 ```sh
 $ for kind in r d u a; do
   nim r -d:danger util/symmSyn -a $kind < words.txt > adj.txt
@@ -81,8 +81,7 @@ the "fully filled out (everything defined & cross-referenced)" undirected
 variant and the other two are somewhere less useful in between.
 
 Now you can point `thes` or various `util/` programs to `--base
-~/.config/thes/[rdua]` for various styles of undirected thesaurus.  For
-example..
+~/.config/thes/[rdua]` for various styles of undirected thesaurus.
 
 synoPath
 --------
