@@ -187,7 +187,7 @@ proc count*(th: Thes, w: string, n=0,
 import std/[strutils, terminal, times], cligen/[tab, humanUt]
 
 type K = enum KxRef="xRef", KkwOnly="kwOnly", KunDef="unDef"
-proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
+proc thes(input="", base="", alpha=false, flush=false, gap=1, types:set[K] = {},
     limit=0, xRef="bold", kwOnly="plain", unDef="italic", plain=false, n=0,
     count=false, measure=false, keep=esq, drop=esq, words: seq[string]){.used.}=
   ## List synonyms maybe with various ANSI SGR embellishments.  With no words on
@@ -196,6 +196,7 @@ proc thes(input="", base="", alpha=false, flush=false, gap=1, types:seq[K]= @[],
   ## Moby has a 300-2000 ms NPM prog to CLquery w/ugly, less informative output.
   ## To enable sub-usec query, we compile data to binary files; View w/`nio pr`.
   let pfx = if words.len > 1: "  " else: ""
+  let types = if types.len > 0: types else: {KxRef, KkwOnly, KunDef}
   let ttyWidth = terminalWidth()  # Filter mode COULD change qry-to-qry,but eh..
   let plain = plain or existsEnv("NO_COLOR")
   let hlX = textAttrOn(xRef.split, plain)
