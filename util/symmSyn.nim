@@ -8,7 +8,7 @@ type
 var toStr*: seq[string]
 var toNum*: Table[string, int32]
 proc getId*(s: string): int32 =
-  result = toNum.mGetOrPut(s, toStr.len.int32)
+  result = toNum.mgetOrPut(s, toStr.len.int32)
   if result == toStr.len: toStr.add s
 
 iterator synLists*(f: File): (int, string) =
