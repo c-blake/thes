@@ -1,7 +1,7 @@
 # Other NIO file examples/use cases are primarily numerical, but similar ideas
 # apply to text-oriented constructions, like this thesaurus program.  If you
 # find yourself using this often, set up a ~/.config/thes with a cached build.
-
+{.warning[Uninit]:off, warning[ProveInit]:off.} # Should be verbosity:2, not 1
 import system/ansi_c, std/[tables, os, math, hashes], std/memfiles as mf
 when declared(File):
   template stdOpen(x: varargs[untyped]): untyped = system.open(x)
