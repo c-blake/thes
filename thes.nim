@@ -2,7 +2,7 @@
 # apply to text-oriented constructions, like this thesaurus program.  If you
 # find yourself using this often, set up a ~/.config/thes with a cached build.
 
-import system/ansi_c, std/[tables, os, math, hashes], std/memfiles as mf
+import system/ansi_c,std/[tables,os,math,hashes],std/memfiles as mf,cligen/sysUt
 when declared(File):
   template stdOpen(x: varargs[untyped]): untyped = system.open(x)
 else:
@@ -89,7 +89,7 @@ proc synsContain(th: Thes, ss: MemSlice, wn: int32): bool = # Check Reciprocal
 
 proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   template offGetOrAdd(o, k, uniq, uniO, uniM) =
-    if k.size>127:raise newException(ValueError,"overlong word: \"" & $k & "\"")
+    if k.size > 127: Value !! "overlong word: \"" & $k & "\""
     try: o = uniq[k]                    # lptabz editOrInit would do only 1 find
     except CatchableError:
       o=uniO; uniq[k]=o; uniM.add chr(k.size.int8), uniO; uniM.add k, uniO
@@ -118,7 +118,7 @@ proc make(th: var Thes; input, base: string) = # Make binary files from `input`
         syns.add synO
     var hs: uint16
     let i = -th.find(kw, hs.addr) - 1   # Lookups MUST fail for inputs w/o dups
-    if i < 0: raise newException(ValueError, "duplicate keyword " & $kw)
+    if i < 0: Value !! "duplicate keyword " & $kw
     th.tab[i].kwH = hs
     th.tab[i].kwR = wO
     cast[pua uint32](th.synM.mem)[i] = synsO
@@ -148,7 +148,7 @@ proc thOpen*(input, base: string): Thes =
   ## Open a thesaurus binary package, building it from "source" if input given.
   if input == "" and base == "":        # Should maybe just HTTPS fetch here
     stderr.write "wget github.com/words/moby/raw/master/words.txt\n"
-    raise newException(ValueError, "Missing data")
+    Value !! "Missing data"
   let base = if base != "": base else: (let (d, nm, _) = input.splitFile; d/nm)
   if input != "" and base != "":
     removeFiles @[base & ".NI", base & ".Lc", base & "_s.NI", base & "_sL.Ni"]
