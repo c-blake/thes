@@ -122,9 +122,11 @@ component:
 nim r -d:danger util/compon r
 ```
 Besides [random graph theory](https://en.wikipedia.org/wiki/Random_graph) and
-the high connectivity in a typical thesaurus, this is likely due to something
+the high connectivity in a typical thesaurus, this is likely due to A) something
 deep about sarcasm in human language (especially applied to extremes like "very
-something") as well as due to the aims of thesaurus construction.
+something"), B) be due to the aims of thesaurus construction and C) even some
+possible confusion in Moby about whether "the antonym list" often in a thesaurus
+is smooshed in with synonyms.
 
 diam
 ----
