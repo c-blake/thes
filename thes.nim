@@ -8,12 +8,9 @@ when declared(File):
 else:
   import std/[syncio, formatfloat]
   template stdOpen(x: varargs[untyped]): untyped = syncio.open(x)
-
 let mfop = mf.open                      # Collides with system.open
 
 # Boring boiler plate-y things that should be in stdlib (were that not so hard).
-template pua(T: typedesc): untyped = ptr UncheckedArray[T]
-
 proc `+%`[T: SomeInteger](p: pointer, i: T): pointer =
   cast[pointer](cast[int](p) +% i.int)
 
@@ -29,7 +26,7 @@ proc toMemSlice*(a: string): MemSlice =
   result.data = a.cstring; result.size = a.len
 
 proc hash*(ms: MemSlice): Hash {.inline.} = # Else Ob.hash not doing data[] used
-  toOpenArray[byte](cast[ptr UncheckedArray[byte]](ms.data), 0, ms.size-1).hash
+  toOpenArray[byte](cast[pua byte](ms.data), 0, ms.size - 1).hash
 
 proc removeFiles(paths: seq[string]) =
   for p in paths: (try: p.removeFile except CatchableError: discard)
@@ -53,7 +50,7 @@ proc word*(th: Thes, i: int32): (MemSlice, bool) = # len < 0 => a keyword
 
 proc find*(th: Thes, w: MemSlice, hsp: ptr uint16 = nil): int =
   let msk = th.tabSz - 1                # Vanilla linear probe hash search
-  let h = toOpenArray[byte](cast[ptr UncheckedArray[byte]](w.data),0,w.size-1).hash
+  let h  = w.hash
   let hs = uint16(h and ((1 shl 11)-1)) # Comparison prefix mask
   var i  = h and msk                    # Initial probe
   while (let j = th.tab[i].kwR.int; j != 0):
