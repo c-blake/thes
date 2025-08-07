@@ -31,13 +31,13 @@ proc makeSymmetric*(f: File, adjust=adjRecip): Thes =
     var toExcl: seq[int32]              # To not edit `synSet` *while iterating*
     for syn in synSet:
       case adjust
-      of adjRecip: 
+      of adjRecip:
         if   syn notin result     : toExcl.add syn
         elif kw  notin result[syn]: toExcl.add syn
-      of adjDef  : 
+      of adjDef  :
         if   syn notin result     : toExcl.add syn
         elif kw  notin result[syn]: result[syn].incl kw
-      of adjUndef: 
+      of adjUndef:
         if   syn notin result     : toIncl.add (syn, kw)
         elif kw  notin result[syn]: toExcl.add syn
       of adjAny: toIncl.add (syn, kw)
@@ -55,7 +55,7 @@ proc symmSyn*(input="-", adjust=adjRecip, format=fmtKeyed) =
   ## graph.  Provide output format to inspect/analyze "nearby" synonym clusters.
   let f  = if input == "-": stdin else: open(input)
   let th = f.makeSymmetric adjust
-  for kw, syns in th:                        
+  for kw, syns in th:
     var ssyns = collect(for syn in syns: toStr[syn][0..^1])
     case format
     of fmtKeyed  : ssyns.sort; echo toStr[kw], ",", ssyns.join ","
