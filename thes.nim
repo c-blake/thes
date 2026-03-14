@@ -88,7 +88,7 @@ proc make(th: var Thes; input, base: string) = # Make binary files from `input`
   template offGetOrAdd(o, k, uniq, uniO, uniM) =
     if k.size > 127: Value !! "overlong word: \"" & $k & "\""
     try: o = uniq[k]                    # lptabz editOrInit would do only 1 find
-    except: o=uniO; uniq[k]=o; uniM.add chr(k.size.int8), uniO; uniM.add k, uniO
+    except: o=uniO;uniq[k]=o; uniM.add char(k.size.int8), uniO; uniM.add k, uniO
   var inp = mfop(input) #^^^Table Set can sink-param-warn, but KV both valueType
   var nL = 0                            # Pass 1: just count lines
   for line in memSlices(inp): inc nL
